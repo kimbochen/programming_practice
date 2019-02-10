@@ -2,55 +2,45 @@
 #include <sstream>
 #include <string>
 
-#define MIN(a,b) (a < b) ? a : b
+#define MIN(a,b) (stoi(a) < stoi(b)) ? a : b
 
 using namespace std;
 
-void probA(void);
-
-int solveCase(int);
+string probA(void);
 
 int main(void)
 {
-    probA();
-
-    return 0;
-}
-
-void probA(void)
-{
-    int T, N;
+    int T;
     stringstream ss;
 
     cin >> T;
 
     for (int i = 0; i < T; i++)
     {
-        cin >> N;
-
-        ss << "Case #" << i+1 << ':'
-            << solveCase(N) << '\n';
+        ss << "Case #" << i+1 << ':';
+        
+        ss << probA() << '\n';
     }
 
     cout << ss.str();
+
+    return 0;
 }
 
-int solveCase(int N)
+string probA(void)
 {
-    string X = to_string(N);
+    string N;
 
+    cin >> N;
+
+    string X = N;
     int i = 0, n = X.size();
 
-    for (; i < n; i++)
-    {
-        if ((X[i]-'0') % 2 == 1)
-        {
-            X[i++] --;
-            break;
-        }
-    }
+    while (i < n && (X[i]-'0') % 2 == 0) i++;
+
+    X[i++] --;
 
     while (i < n) X[i++] = '8';
 
-    return stoi(X);
+    return X;
 }
