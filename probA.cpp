@@ -3,6 +3,7 @@
 #include <string>
 
 #define MIN(a,b) (a < b) ? a : b
+#define ULL unsigned long long
 
 using namespace std;
 
@@ -33,7 +34,7 @@ string probA(void)
 
     cin >> N;
 
-    int M, P, Q;
+    ULL M, P, Q;
     int n = N.size();
 
     string X = N;
@@ -84,11 +85,11 @@ string probA(void)
         }
     }
 
-    Q = stoi(N);
+    Q = stol(N);
 
-    M = Q - stoi(X);
+    M = Q - stol(X);
 
-    P = stoi(Y) - Q;
+    P = stol(Y) - Q;
 
     return to_string(MIN(M,P)) + "\n";
 }
