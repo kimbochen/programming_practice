@@ -19,7 +19,7 @@ int main(void)
 
     for (int i = 0; i < T; i++)
     {
-        ss << "Case #" << i+1 << ':' << probA();
+        ss << "Case #" << i+1 << ": " << probA();
     }
 
     cout << ss.str();
