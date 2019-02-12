@@ -37,6 +37,7 @@ double probB(void)
     for (int i = 0; i < N; i++)
     {
         cin >> V[i];
+
         EX += V[i];
     }
 
@@ -44,14 +45,17 @@ double probB(void)
 
     if (K > 0)
     {
-        double sum = 0.0;
-
-        for (int i = 0; i < N; i++)
+        for (int i = 0; i < K; i++)
         {
-            sum += max(EX, V[i]);
+            double sum = 0.0;
+    
+            for (int i = 0; i < N; i++)
+            {
+                sum += max(EX, V[i]);
+            }
+    
+            EX = sum / N;
         }
-
-        EX = sum / N;
     }
 
     return EX;
