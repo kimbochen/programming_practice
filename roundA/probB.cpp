@@ -6,6 +6,10 @@ using namespace std;
 
 double probB(void);
 
+double suffixSum(double[],int,int);
+
+int searchMin(double[],int,int,double);
+
 int main(void)
 {
     int T;
@@ -34,29 +38,44 @@ double probB(void)
 
     V = new double[N];
 
-    for (int i = 0; i < N; i++)
-    {
-        cin >> V[i];
+    for (int i = 0; i < N; i++) cin >> V[i];
 
-        EX += V[i];
-    }
+    sort(V, V+N);
 
-    EX /= N;
+    EX = suffixSum(V, N, 0) / N;
 
     if (K > 0)
     {
         for (int i = 0; i < K; i++)
         {
-            double sum = 0.0;
-    
-            for (int i = 0; i < N; i++)
-            {
-                sum += max(EX, V[i]);
-            }
-    
-            EX = sum / N;
+            int s = searchMin(V, 0, N-1, EX);
+
+            EX = suffixSum(V, N, s) / N + EX * s / N;
         }
     }
 
     return EX;
+}
+
+double suffixSum(double V[], int N, int s)
+{
+    double sum = 0.0;
+
+    for (int i = s;i < N; i++) sum += V[i];
+
+    return sum;
+}
+
+int searchMin(double V[], int lf, int rt, double EX)
+{
+    if (lf < rt)
+    {
+        int m = (lf + rt) / 2;
+
+        if (V[m] < EX) 
+            return searchMin(V, m+1, rt, EX);
+        else 
+            return searchMin(V, lf, m, EX);
+    }
+    else return lf;
 }
