@@ -4,26 +4,95 @@
 
 using namespace std;
 
+class Fraction
+{
+public:
+    Fraction(long nom_, long den_): nom(nom_), den(den_)
+    {
+        reduce();
+    }
+
+    Fraction operator+(const Fraction &obj)
+    {
+        long fac = gcd(den, obj.den);
+
+        long nom_ = nom * (obj.den / fac) + obj.nom * (den / fac);
+
+        long den_ = (den / fac) * obj.den;
+
+        return Fraction(nom_, den_);
+    }
+
+    Fraction operator*(const Fraction &obj)
+    {
+        long lr_fac = gcd(nom, obj.den);
+        long rl_fac = gcd(den, obj.nom);
+
+        long nom_ = (nom / lr_fac)*(obj.nom / rl_fac);
+        long den_ = (den / rl_fac)*(obj.den/lr_fac);
+
+        return Fraction(nom_, den_);
+    }
+
+    double toDouble(void)
+    {
+        return ((double) nom / den);
+    }
+
+private:
+    long nom, den;
+
+    void reduce(void)
+    {
+        long factor = gcd(nom, den);
+
+        nom /= factor;
+        den /= factor;
+    }
+
+    long gcd(long a, long b)
+    {
+        return (a % b == 0) ? b : gcd(b, a%b);
+    }
+};
+
 double probB(void);
 
-double suffixSum(double[],int,int);
+double suffixSum(int[],int,int);
 
-int searchMin(double[],int,int,double);
+int searchMin(int[],int,int,double);
 
 int main(void)
 {
-    int T;
-    stringstream ss;
+    long n, d;
 
-    cin >> T;
+    cin >> n >> d;
 
-    for (int i = 0; i < T; i++)
-    {
-        ss << "Case #" << i+1 << ": ";
-        ss << fixed << probB() << '\n';
-    }
+    Fraction a(n,d);
 
-    cout << ss.str();
+    cin >> n >> d;
+
+    Fraction b(n,d);
+
+    Fraction c = a + b;
+
+    Fraction e = a * b;
+
+    cout << "c: " << c.toDouble() << '\n';
+
+    cout << "e: " << e.toDouble() << '\n';
+    //int T;
+    //stringstream ss;
+
+    //cin >> T;
+
+    //for (int i = 0; i < T; i++)
+    //{
+    //    ss << "Case #" << i+1 << ": ";
+    //    ss << fixed << probB() << '\n';
+    //}
+
+    //cout << ss.str();
 
     return 0;
 }
@@ -31,12 +100,12 @@ int main(void)
 double probB(void)
 {
     int N, K;
-    double *V = nullptr;
+    int *V = nullptr;
     double EX = 0.0;
 
     cin >> N >> K;
 
-    V = new double[N];
+    V = new int[N];
 
     for (int i = 0; i < N; i++) cin >> V[i];
 
@@ -57,7 +126,7 @@ double probB(void)
     return EX;
 }
 
-double suffixSum(double V[], int N, int s)
+double suffixSum(int V[], int N, int s)
 {
     double sum = 0.0;
 
@@ -66,7 +135,7 @@ double suffixSum(double V[], int N, int s)
     return sum;
 }
 
-int searchMin(double V[], int lf, int rt, double EX)
+int searchMin(int V[], int lf, int rt, double EX)
 {
     if (lf < rt)
     {
