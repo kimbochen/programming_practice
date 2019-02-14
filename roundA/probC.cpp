@@ -1,12 +1,13 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <vector>
 
 using namespace std;
 
 int probC(void);
 
-void readInput(int&,string**,int&,char**);
+void readInput(vector<string>&,string&);
 
 int main(void)
 {
@@ -28,32 +29,35 @@ int main(void)
 
 int probC(void)
 {
-    int L, N;
-    char *S = nullptr;
-    string *dict = nullptr;
+    string S;
+    vector<string> dict;
 
-    readInput(L, &dict, N, &S);
-
-    for (int i = 0; i < N; i++) cout << S[i] << "\n"[i<N-1];
+    readInput(dict, S);
 
     return 0;
 }
-void readInput(int &L, string **p_dict, int &N, char **p_S)
+void readInput(vector<string> &dict, string &S)
 {
+    int L;
     cin >> L;
 
-    string *dict = new string[L];
+    dict.reserve(L);
 
-    for (int i = 0; i < L; i++) cin >> dict[i];
+    string s;
+    for (int i = 0; i < L; i++) 
+    {
+        cin >> s;
+        dict.emplace_back(s);
+    }
 
     cin.ignore();
 
     char S1, S2;
-    int A, B, C, D;
+    int N, A, B, C, D;
 
     cin >> S1 >> S2 >> N >> A >> B >> C >> D;
 
-    int *x = new int[N];
+    vector<int> x(N);
 
     x[0] = (int) S1;
     x[1] = (int) S2;
@@ -62,15 +66,12 @@ void readInput(int &L, string **p_dict, int &N, char **p_S)
         x[i] = (A * x[i-1] + B * x[i-2] + C) % D;
     }
 
-    char *S = new char[N];
+    S.reserve(N);
 
-    S[0] = S1;
-    S[1] = S2;
+    S += S1;
+    S += S2;
     for (int i = 2; i < N; i++)
     {
-        S[i] = (char)(97 + (x[i] % 26));
+        S += (char)(97 + (x[i] % 26));
     }
-
-    *p_dict = dict;
-    *p_S = S;
 }
