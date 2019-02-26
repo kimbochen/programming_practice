@@ -2,6 +2,9 @@
 
 using ull = unsigned long long;
 
+// Problem description:
+// https://codeforces.com/contest/1118/problem/A
+
 int main(void)
 {
     int q, a, b;
@@ -13,24 +16,16 @@ int main(void)
     {
         std::cin >> n >> a >> b;
 
+		// If a/b >= 1/2, but avoiding floating-point arithmetics
         if (2 * a >= b)
         {
+			// If n is even
             if (n % 2 == 0)
-            {
-                x = 0;
-                y = n/2;
-            }
+                x = 0, y = n/2;
             else
-            {
-                x = 1;
-                y = (n-1)/2;
-            }
+                x = 1, y = (n-1)/2;
         }
-        else
-        {
-            x = n;
-            y = 0;
-        }
+        else x = n, y = 0;
 
         std::cout << a * x + b * y << '\n';
     }
