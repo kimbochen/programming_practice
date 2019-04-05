@@ -4,7 +4,6 @@
 int main(void)
 {
     int n;
-
     std::cin >> n;
 
     int a, suf_sum = 0;

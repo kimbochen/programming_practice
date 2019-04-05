@@ -9,20 +9,14 @@ vector<int> a;
 
 bool canFinish(int days)
 {
-    long long pages = 0;
+    long long pages = 0, t = 0;
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n && a[i] > t; i++)
     {
-        pages += max(0, a[i] - i / days);
+        pages += a[i] - t;
+
+        if ((i + 1) % days == 0) t++;
     }
-    //long long pages = 0, t = 0;
-
-    //for (int i = 0; i < n && a[i] > t; i++)
-    //{
-    //    pages += a[i] - t;
-
-    //    if ((i + 1) % days == 0) t++;
-    //}
 
     return (pages >= m);
 }
