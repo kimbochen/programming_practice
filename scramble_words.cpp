@@ -34,8 +34,10 @@ int probC(void)
 
     readInput(dict, S);
 
+
     return 0;
 }
+
 void readInput(vector<string> &dict, string &S)
 {
     int L;
@@ -49,8 +51,6 @@ void readInput(vector<string> &dict, string &S)
         cin >> s;
         dict.emplace_back(s);
     }
-
-    cin.ignore();
 
     char S1, S2;
     int N, A, B, C, D;
