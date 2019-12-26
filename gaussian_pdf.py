@@ -5,7 +5,7 @@ import numpy as np
 
 def p(x, mu):
     m = mu.shape[0]
-    k = 1 / (m * 1 * np.sqrt(2 * np.pi))
+    k = 1 / (1 * (2 * np.pi)**(3/2))
     sum_exp = 0
     
     for i in range(m):
