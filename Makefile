@@ -1,14 +1,13 @@
-# Makefile
-
 CXX = clang++
-CXXFLAGS = -O2 -g -Werror -Wall -std=c++17
-TARGET = #myprog
+CXXFLAGS = -std=c++17 -O0 -Wall -Werror
+TARGET = 
 
-all: $(TARGET)
-
-$(TARGET): $(TARGET).cpp
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(TARGET).cpp
+# target filename: dependency list
+# $@: target filename variable (prog)
+# $^: dependency list variable (TARGET)
+prog: $(TARGET)
+	$(CXX) $^ $(CXXFLAGS) -o $@
 
 .PHONY: clean
 clean:
-	$(RM) $(TARGET)
+	rm -rf prog
